@@ -52,7 +52,7 @@ jobs:
           runtime: python38
           env_vars_file: .github/env/env.yaml
           event_trigger_type: providers/cloud.pubsub/eventTypes/topic.publish
-          event_trigger_resource: projects/${{ proj_name }}/topics/trigger-github-actions-deploy-gf
+          event_trigger_resource: projects/${{ env.proj_name }}/topics/trigger-github-actions-deploy-gf
         env:
           proj_name: ${{ secrets.GCP_PROJ_NAME }}
           
