@@ -30,9 +30,12 @@ jobs:
       - name: Setup GCloud
         uses: google-github-actions/auth@v1
         with:
-          project_id: ${{ secrets.GCP_PROJ_NAME }}
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: project_name
+          credentials_json: project_cred
           export_environment_variables: true
+        env:
+          project_name: ${{ secrets.GCP_PROJ_NAME }}
+          project_cred: ${{ secrets.GCP_CREDENTIALS }}
       
       - name: Deploy Cloud Functions
         uses: google-github-actions/deploy-cloud-functions@v1
