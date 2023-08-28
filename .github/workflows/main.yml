@@ -30,11 +30,12 @@ jobs:
       - name: Setup GCloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: project_cred
           project_id: project_name
           export_environment_variables: true
         env:
           project_name: ${{ secrets.GCP_PROJ_NAME }}
+          project_cred: ${{ secrets.GCP_CREDENTIALS }}
       
       - name: Deploy Cloud Functions
         uses: google-github-actions/deploy-cloud-functions@v1
@@ -51,7 +52,9 @@ jobs:
           runtime: python38
           env_vars_file: .github/env/env.yaml
           event_trigger_type: providers/cloud.pubsub/eventTypes/topic.publish
-          event_trigger_resource: projects/${{ secrets.GCP_PROJ_NAME }}/topics/trigger-github-actions-deploy-gf
+          event_trigger_resource: projects/${{ proj_name }}/topics/trigger-github-actions-deploy-gf
+        env:
+          proj_name: ${{ secrets.GCP_PROJ_NAME }}
           
       # Runs a single command using the runners shell
       - name: Deployment has completed
